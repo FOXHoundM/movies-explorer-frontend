@@ -1,0 +1,14 @@
+.header {
+    min-height: 74px;
+    max-width: 1280px;
+    background-color: #5c5c5c;
+}
+
+.header__color {
+
+}
+
+.header__logo {
+    background-image: url(../../images/logo-dollar-header.svg);
+    background-repeat: no-repeat;
+}
