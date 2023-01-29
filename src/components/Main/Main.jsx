@@ -1,8 +1,8 @@
 import React from 'react';
 import MainHeader from "../Header/MainHeader/MainHeader";
-
 import './Main.css'
 import Header from "../Header/Header";
+import MoviesHeader from './../Header/MoviesHeader/MoviesHeader';
 
 
 const Main = () => {
@@ -12,9 +12,8 @@ const Main = () => {
 				color={'header__color_white'}
 				location={'header__container_movies'}
 			>
-				<MainHeader/>
+				<MoviesHeader/>
 			</Header>
-
 
 			<Header
 				color={'header__color_grey'}

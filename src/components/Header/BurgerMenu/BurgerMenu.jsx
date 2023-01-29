@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import './BurgerMenu.css'
 
 const BurgerMenu = ({isOpen, onClose}) => {
@@ -14,8 +14,8 @@ const BurgerMenu = ({isOpen, onClose}) => {
 				/>
 				<nav className='burger__menu_nav'>
 					<Link to='/' className='burger__menu_nav-link'>Главная</Link>
-					<Link to='/movies' className='burger__menu_nav-link'>Фильмы</Link>
-					<Link to='/saved-movies' className='burger__menu_nav-link'>Сохраненные фильмы</Link>
+					<NavLink to='/movies' className='burger__menu_nav-link'>Фильмы</NavLink>
+					<NavLink to='/saved-movies' className='burger__menu_nav-link'>Сохраненные фильмы</NavLink>
 				</nav>
 
 				<Link to='/profile' className='burger__menu_link_profile'>Аккаунт</Link>

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import './MoviesHeader.css';
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 
@@ -13,14 +13,14 @@ const MoviesHeader = () => {
 			<nav className='header__nav'>
 				<ul className='header__nav_list'>
 					<li className='header__nav_item'>
-						<Link to='/movies' className='header__nav_item_link'>
+						<NavLink to='/movies' className='header__nav_item_link'>
 							Фильмы
-						</Link>
+						</NavLink>
 					</li>
 					<li className='header__nav_item'>
-						<Link to='/saved-movies' className='header__nav_item_link'>
+						<NavLink to='/saved-movies' className='header__nav_item_link'>
 							Сохранённые фильмы
-						</Link>
+						</NavLink>
 					</li>
 				</ul>
 				<Link
