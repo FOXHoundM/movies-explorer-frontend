@@ -11,7 +11,7 @@ const MainHeader = () => {
 						Регистрация
 					</Link>
 				</li>
-				<li className="header__link">
+				<li className="header__link_item">
 					<Link to='/signin' className='header__link_signin'>
 						Войти
 					</Link>

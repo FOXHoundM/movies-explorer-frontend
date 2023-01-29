@@ -25,7 +25,7 @@
   /*border: 1px solid red;*/
 }
 
-.header__link:last-child {
+.header__link_item:last-child {
   margin-right: 0;
 }
 
@@ -37,6 +37,7 @@
   border-radius: 3px;
   padding: 8px 20px;
   text-decoration: none;
+	transition: 0.8s ease-in-out;
 }
 
 .header__link_signup {
@@ -59,7 +60,8 @@
   }
 
   .header__link_container {
-    font-size: 10px;
+		font-size: 10px;
+		line-height: 16px;
   }
 
   .header__link_signin {

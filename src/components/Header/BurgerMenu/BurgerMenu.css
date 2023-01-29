@@ -95,7 +95,14 @@
 	border: 1px solid red;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (min-width: 1280px){
+.burger__menu{
+	visibility: hidden;
+}
+}
+
+
+@media screen and (max-width: 650px) {
 	.burger__menu_container {
 		width: 320px;
 	}

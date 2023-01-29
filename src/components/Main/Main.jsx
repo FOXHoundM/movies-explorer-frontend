@@ -1,34 +1,28 @@
 import React from 'react';
-import MainHeader from "../Header/MainHeader/MainHeader";
-import './Main.css'
-import Header from "../Header/Header";
+import MainHeader from '../Header/MainHeader/MainHeader';
+import './Main.css';
+import Header from '../Header/Header';
 import MoviesHeader from './../Header/MoviesHeader/MoviesHeader';
+import Promo from './Promo/Promo';
 
-
-const Main = () => {
+const Main = ({ loggedIn }) => {
 	return (
 		<>
-			<Header
-				color={'header__color_white'}
-				location={'header__container_movies'}
-			>
-				<MoviesHeader/>
-			</Header>
+			{loggedIn ? (
+				<Header color={'header__color_white'}>
+					<MoviesHeader />
+				</Header>
+			) : (
+				<Header color={'header__color_grey'}>
+					<MainHeader />
+				</Header>
+			)}
 
-			<Header
-				color={'header__color_grey'}
-				location={'header__container_landing'}
-			>
-				<MainHeader/>
-			</Header>
-
-			<main>
-
-
+			<main className='main'>
+				<Promo />
 			</main>
 		</>
-	)
-		;
+	);
 };
 
 export default Main;
