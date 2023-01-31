@@ -69,17 +69,14 @@ const Login = () => {
 						{errors?.password && <p className='error error__password'>{errors.password.message}</p>}
 					</label>
 
-					<input disabled={!isValid}
-						type='submit'
-						className='login__submit_btn'/>
 
-					{/*<button
+					<button
 						disabled={!isValid}
 						type='submit'
 						className='login__submit_btn'
 					>
 						Войти
-					</button>*/}
+					</button>
 					<Link className='login__subtitle' to='/signup'>
 						Ещё не зарегистрированы?{' '}
 						<span className='login__subtitle_link'>Регистрация</span>
