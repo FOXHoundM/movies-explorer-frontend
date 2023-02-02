@@ -3,7 +3,7 @@ import useFormWithValidation from "../../../utils/hooks/useFormValidation";
 import {Link} from "react-router-dom";
 import './Register.css'
 
-const Register = ({isErrorRegisterBtn, onReg, isRegMessage}) => {
+const Register = ({isErrorRegisterBtn, onRegister, isRegisterMessage}) => {
 	const controlInput = useFormWithValidation();
 	const {name, email, password} = controlInput.errors;
 
@@ -16,7 +16,7 @@ const Register = ({isErrorRegisterBtn, onReg, isRegMessage}) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const {name, email, password} = controlInput.values;
-		onReg(name, email, password);
+		onRegister(name, email, password);
 		controlInput.resetForm();
 	};
 
@@ -88,7 +88,7 @@ const Register = ({isErrorRegisterBtn, onReg, isRegMessage}) => {
 					</label>
 
 
-					<span className={errorClassNameBtn}>{isRegMessage}</span>
+					<span className={errorClassNameBtn}>{isRegisterMessage}</span>
 					<button
 						disabled={!controlInput.isValid}
 						type='submit'
