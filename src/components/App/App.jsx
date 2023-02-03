@@ -7,6 +7,7 @@ import Login from './../User/Login/Login';
 import Register from './../User/Register/Register';
 import Profile from '../User/Profile/Profile';
 import {CurrentUserContext} from "../../context/CurrentUserContext";
+import PageNotFound from "../PageNotFound/PageNotFound";
 
 function App() {
 
@@ -91,6 +92,11 @@ function App() {
 								 onUpdateUser={onUpdateUser}
 								 onSignOut={onSignOut}
 								 isProfileMessage={isProfileMessage}/>}
+				/>
+
+
+				<Route path='*'
+							 element={<PageNotFound/>}
 				/>
 			</Routes>
 
