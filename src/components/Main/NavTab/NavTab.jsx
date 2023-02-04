@@ -17,7 +17,7 @@ const NavTab = () => {
 						</a>
 					</li>
 					<li className='navigation__item'>
-						<a href='#' className='navigation__link'>
+						<a href='/' className='navigation__link'>
 							Студент
 						</a>
 					</li>

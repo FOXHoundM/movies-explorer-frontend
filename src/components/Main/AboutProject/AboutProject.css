@@ -117,6 +117,16 @@
   }
 }
 
+@media screen and (max-width: 768px){
+	.about__dates_item:first-of-type {
+    flex-basis: 20%;
+  }
+
+  .about__dates_item:last-of-type {
+    flex-basis: 80%;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .about__container {
     padding: 70px 0;
@@ -155,7 +165,7 @@
     line-height: 16px;
   }
 
-  .about__dates-time {
+  .about__dates_time {
     padding: 11px 10px;
     font-size: 11px;
     line-height: 13px;
