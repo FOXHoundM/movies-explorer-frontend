@@ -7,6 +7,9 @@ import Promo from './Promo/Promo';
 import NavTab from "./NavTab/NavTab";
 import Techs from "./Techs/Techs";
 import AboutProject from "./AboutProject/AboutProject";
+import AboutMe from "./AboutMe/AboutMe";
+import Portfolio from "./Portfolio/Portfolio";
+import Footer from "../Footer/Footer";
 
 const Main = ({loggedIn}) => {
 	return (
@@ -26,7 +29,10 @@ const Main = ({loggedIn}) => {
 				<NavTab/>
 				<AboutProject/>
 				<Techs/>
+				<AboutMe/>
+				<Portfolio/>
 			</main>
+			<Footer/>
 		</>
 	);
 };
