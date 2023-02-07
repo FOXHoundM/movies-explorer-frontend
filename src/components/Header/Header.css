@@ -14,10 +14,11 @@
 .header__container {
   display: flex;
   align-items: center;
-  margin: 0 70px 0 70px;
+  padding: 18px 70px 18px 70px;
   justify-content: space-between;
-  padding-top: 18px;
 
+
+  border: 1px solid red;
 }
 
 .header__logo {
@@ -42,7 +43,7 @@
   }
 
   .header__container {
-    margin: 0 30px 18px 30px;
+    padding: 18px 30px 18px 30px;
   }
 }
 
@@ -52,7 +53,7 @@
   }
 
   .header__container {
-    margin-left: 14px;
+    padding-left: 14px;
 
   }
 

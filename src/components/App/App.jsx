@@ -1,13 +1,16 @@
 import './App.css';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import Main from '../Main/Main';
-import { useState } from 'react';
+import {useState} from 'react';
 import Movies from './../Movies/Movies';
 import Login from './../User/Login/Login';
 import Register from './../User/Register/Register';
 import Profile from '../User/Profile/Profile';
-import { CurrentUserContext } from '../../context/CurrentUserContext';
+import {CurrentUserContext} from '../../context/CurrentUserContext';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import ProtectedRoute from "../ProtectedRoute";
+import SavedMovies from "../SavedMovies/SavedMovies";
+import {movies} from "../../utils/constants";
 
 function App() {
 	const location = useLocation();
@@ -41,7 +44,7 @@ function App() {
 	const onUpdateUser = (name, email) => {
 		if ((name, email)) {
 			setIsProfileMessage(true);
-			setCurrentUser({ name, email });
+			setCurrentUser({name, email});
 		} else {
 			setIsProfileMessage(false);
 		}
@@ -61,9 +64,29 @@ function App() {
 		<div className='App'>
 			<CurrentUserContext.Provider value={currentUser}>
 				<Routes>
-					<Route path='/' element={<Main loggedIn={loggedIn} />} />
+					<Route path='/' element={<Main loggedIn={loggedIn}/>}/>
 
-					<Route path='/movies' element={<Movies />} />
+					<Route path='/movies' element={
+						<ProtectedRoute loggedIn={loggedIn}>
+							<Movies
+								movies={movies}
+
+							>
+
+							</Movies>
+						</ProtectedRoute>
+					}/>
+
+					<Route path='/saved-movies' element={
+						<ProtectedRoute loggedIn={loggedIn}>
+							<SavedMovies
+
+							>
+							</SavedMovies>
+
+
+						</ProtectedRoute>
+					}/>
 
 					<Route
 						path='/signin'
@@ -97,7 +120,7 @@ function App() {
 						}
 					/>
 
-					<Route path='*' element={<PageNotFound />} />
+					<Route path='*' element={<PageNotFound/>}/>
 				</Routes>
 			</CurrentUserContext.Provider>
 		</div>
