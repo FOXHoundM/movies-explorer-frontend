@@ -58,6 +58,7 @@
 .profile__label_input:focus {
   outline: none;
   text-align: right;
+	border-bottom: 1px solid gray;
 }
 
 .profile__list {
