@@ -43,6 +43,7 @@
   transition: 0.7s ease-in-out;
   cursor: pointer;
   background-image: url('../../../images/heart.svg');
+	border:0;
 }
 
 .movies-card__favorite:hover {
