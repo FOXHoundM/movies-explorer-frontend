@@ -1,8 +1,6 @@
 .movies-card__item {
   margin: 0;
   padding: 0;
-
-  border: 1px solid red;
 }
 
 .movies-card__trailer-link {
@@ -32,8 +30,6 @@
   white-space: nowrap;
   overflow: hidden;
   margin-top: 10px;
-
-  border: 1px solid red;
 }
 
 .movies-card__favorite {
@@ -47,9 +43,6 @@
   transition: 0.7s ease-in-out;
   cursor: pointer;
   background-image: url('../../../images/heart.svg');
-
-
-  border: 1px solid red;
 }
 
 .movies-card__favorite:hover {
@@ -72,18 +65,18 @@
 }
 
 
-@media screen and (max-width: 900px){
-	.movies-card__image{
-		width: 339px;
-		height: 190px;
-	}
-		
-	}
+@media screen and (max-width: 900px) {
+  .movies-card__image {
+    width: 339px;
+    height: 190px;
+  }
 
-	@media screen and (max-width: 710px){
-		.movies-card__image{
-			width: 300px;
-			height: 168px;
-		}
-			
-		}
+}
+
+@media screen and (max-width: 710px) {
+  .movies-card__image {
+    width: 300px;
+    height: 168px;
+  }
+
+}
