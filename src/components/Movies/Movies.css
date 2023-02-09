@@ -19,37 +19,38 @@
 .movies__button:hover {
   opacity: 0.8;
 }
+
 @media screen and (max-width: 900px) {
-	.movies__button{
-	max-width: 708px;
-	}
-	
+  .movies__button {
+    max-width: 708px;
+  }
+
 }
 
 @media screen and (max-width: 740px) {
-	.movies__button{
-	max-width: 550px;
-	}
-	
+  .movies__button {
+    max-width: 550px;
+  }
+
 }
 
 @media screen and (max-width: 740px) {
-	.movies__button{
-	max-width: 500px;
-	}
-	
+  .movies__button {
+    max-width: 500px;
+  }
+
 }
 
 @media screen and (max-width: 550px) {
-	.movies__button{
-	max-width: 300px;
-	}
-	
+  .movies__button {
+    max-width: 300px;
+  }
+
 }
 
 @media screen and (max-width: 330px) {
-	.movies__button{
-	max-width: 200px;
-	}
-	
+  .movies__button {
+    max-width: 200px;
+  }
+
 }
