@@ -10,7 +10,6 @@ import {CurrentUserContext} from '../../context/CurrentUserContext';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import ProtectedRoute from "../ProtectedRoute";
 import SavedMovies from "../SavedMovies/SavedMovies";
-import {movies} from "../../utils/constants";
 
 function App() {
 	const location = useLocation();
@@ -69,7 +68,6 @@ function App() {
 					<Route path='/movies' element={
 						<ProtectedRoute loggedIn={loggedIn}>
 							<Movies
-								movies={movies}
 
 							>
 

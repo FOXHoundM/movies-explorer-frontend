@@ -3,6 +3,9 @@ import './SavedMovies.css'
 import Header from "../Header/Header";
 import MoviesHeader from "../Header/MoviesHeader/MoviesHeader";
 import SearchForm from "../Movies/SearchForm/SearchForm";
+import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
+import { movies } from '../../utils/constants'; 
+import Footer from '../Footer/Footer';
 
 const SavedMovies = () => {
 	return (
@@ -13,9 +16,12 @@ const SavedMovies = () => {
 
 
 			<main className='saved-movies'>
-				<SearchForm/>
+			<SearchForm />
+				<MoviesCardList movies={movies} cardType='searchMovie' />
 
 			</main>
+
+			<Footer/>
 
 		</>
 

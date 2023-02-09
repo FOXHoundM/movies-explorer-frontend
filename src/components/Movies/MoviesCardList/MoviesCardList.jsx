@@ -1,10 +1,10 @@
-import "./MoviesCardList.css";
-import MoviesCard from "../MoviesCard/MoviesCard";
+import './MoviesCardList.css';
+import MoviesCard from '../MoviesCard/MoviesCard';
 
-export default function MoviesCardList({movies, cardType}) {
+export default function MoviesCardList({ movies, cardType }) {
 	return (
-		<section className="moviesCardList">
-			<ul className="moviesCardList__list">
+		<section className='movies-card-list'>
+			<ul className='movies-card-list__list-container'>
 				{movies.map((movie) => (
 					<MoviesCard
 						key={movie.id}
@@ -15,6 +15,7 @@ export default function MoviesCardList({movies, cardType}) {
 					/>
 				))}
 			</ul>
+		
 		</section>
 	);
 }
