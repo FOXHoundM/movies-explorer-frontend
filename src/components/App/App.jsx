@@ -10,9 +10,10 @@ import {CurrentUserContext} from '../../context/CurrentUserContext';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import ProtectedRoute from "../ProtectedRoute";
 import SavedMovies from "../SavedMovies/SavedMovies";
+import InfoToolTip from "../InfoTooltip/InfoTooltip";
 
 function App() {
-	const location = useLocation();
+	// const location = useLocation();
 	const navigate = useNavigate();
 
 	const [currentUser, setCurrentUser] = useState({});
@@ -23,6 +24,12 @@ function App() {
 	const [isLoginMessage, setLoginMessage] = useState(false);
 	const [isErrorLoginBtn, setIsErrorLoginBtn] = useState(false);
 	const [isProfileMessage, setIsProfileMessage] = useState(false);
+
+	const [isToolTipOpen, setIsToolTipOpen] = useState(false);
+
+	function closeAllPopups() {
+		setIsToolTipOpen(false);
+	}
 
 
 	const onRegister = (name, email, password) => {
@@ -36,6 +43,7 @@ function App() {
 	const onLogin = (email, password) => {
 		if ((email, password)) {
 			setLoggedIn(true);
+			setIsToolTipOpen(true)
 			navigate('/movies');
 		} else {
 			setIsErrorLoginBtn(true);
@@ -121,6 +129,14 @@ function App() {
 
 					<Route path='*' element={<PageNotFound/>}/>
 				</Routes>
+
+				<InfoToolTip
+					successReg="Вы успешно зарегистрировались!"
+					failedReg="Что-то пошло не так! Попробуйте ещё раз."
+					isOpen={isToolTipOpen}
+					onClose={closeAllPopups}
+					// isSuccess={isAuth}
+				/>
 
 
 			</CurrentUserContext.Provider>
