@@ -13,12 +13,12 @@ const MoviesHeader = () => {
 			<nav className='header__nav'>
 				<ul className='header__nav_list'>
 					<li className='header__nav_item'>
-						<NavLink to='/movies' className='header__nav_item_link'>
+						<NavLink to='/movies' className='header__nav_item_link header__nav_item_link-color'>
 							Фильмы
 						</NavLink>
 					</li>
 					<li className='header__nav_item'>
-						<NavLink to='/saved-movies' className='header__nav_item_link'>
+						<NavLink to='/saved-movies' className='header__nav_item_link header__nav_item_link-color'>
 							Сохранённые фильмы
 						</NavLink>
 					</li>
