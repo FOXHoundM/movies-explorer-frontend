@@ -24,6 +24,7 @@ function App() {
 	const [isErrorLoginBtn, setIsErrorLoginBtn] = useState(false);
 	const [isProfileMessage, setIsProfileMessage] = useState(false);
 
+
 	const onRegister = (name, email, password) => {
 		if ((name, email, password)) {
 			onLogin(email, password);
@@ -34,8 +35,8 @@ function App() {
 
 	const onLogin = (email, password) => {
 		if ((email, password)) {
-			navigate('/movies');
 			setLoggedIn(true);
+			navigate('/movies');
 		} else {
 			setIsErrorLoginBtn(true);
 		}
@@ -120,6 +121,8 @@ function App() {
 
 					<Route path='*' element={<PageNotFound/>}/>
 				</Routes>
+
+
 			</CurrentUserContext.Provider>
 		</div>
 	);

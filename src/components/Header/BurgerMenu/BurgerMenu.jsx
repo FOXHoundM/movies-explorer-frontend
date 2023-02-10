@@ -13,7 +13,7 @@ const BurgerMenu = ({isOpen, onClose}) => {
 					type='button'
 				/>
 				<nav className='burger__menu_nav'>
-					<Link to='/' className='burger__menu_nav-link'>Главная</Link>
+					<a href='/' className='burger__menu_nav-link'>Главная</a>
 					<NavLink to='/movies' className='burger__menu_nav-link'>Фильмы</NavLink>
 					<NavLink to='/saved-movies' className='burger__menu_nav-link'>Сохраненные фильмы</NavLink>
 				</nav>

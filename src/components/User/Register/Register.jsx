@@ -88,7 +88,7 @@ const Register = ({isErrorRegisterBtn, onRegister, isRegisterMessage}) => {
 					</label>
 
 
-					<span className={errorClassNameBtn}>{isRegisterMessage}</span>
+					<p className={errorClassNameBtn}>{isRegisterMessage}</p>
 					<button
 						disabled={!controlInput.isValid}
 						type='submit'
