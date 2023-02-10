@@ -46,7 +46,9 @@ const Profile = ({onUpdateUser, onSignOut, isProfileMessage}) => {
 
 	return (
 		<>
-			<Header color={'header__color_white'}>
+			<Header
+				color={'header__color_white'}
+			>
 				<MoviesHeader/>
 			</Header>
 

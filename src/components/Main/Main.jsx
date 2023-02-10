@@ -15,11 +15,15 @@ const Main = ({loggedIn}) => {
 	return (
 		<>
 			{loggedIn ? (
-				<Header color={'header__color_white'}>
+				<Header
+					color={'header__color_white'}
+				>
 					<MoviesHeader/>
 				</Header>
 			) : (
-				<Header color={'header__color_grey'}>
+				<Header
+					color={'header__color_grey'}
+				>
 					<MainHeader/>
 				</Header>
 			)}

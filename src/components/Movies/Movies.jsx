@@ -19,7 +19,9 @@ export default function Movies() {
 
 	return (
 		<>
-			<Header color={'header__color_white'}>
+			<Header
+				color={'header__color_white'}
+			>
 				<MoviesHeader/>
 			</Header>
 			<main className='movies'>
