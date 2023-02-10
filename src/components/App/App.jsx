@@ -53,6 +53,7 @@ function App() {
 	const onUpdateUser = (name, email) => {
 		if ((name, email)) {
 			setIsProfileMessage(true);
+			setIsToolTipOpen(true);
 			setCurrentUser({name, email});
 		} else {
 			setIsProfileMessage(false);
@@ -124,6 +125,8 @@ function App() {
 								onUpdateUser={onUpdateUser}
 								onSignOut={onSignOut}
 								isProfileMessage={isProfileMessage}
+								successReg="Вы успешно изменили данные!"
+								failedReg="Что-то пошло не так! Попробуйте ещё раз."
 							/>
 						}
 					/>
