@@ -16,13 +16,15 @@ const Main = ({loggedIn}) => {
 		<>
 			{loggedIn ? (
 				<Header
-					color={'header__color_white'}
+					color={'header__color_grey'}
+					location={'header__container_movies'}
 				>
 					<MoviesHeader/>
 				</Header>
 			) : (
 				<Header
 					color={'header__color_grey'}
+					location={'header__container_landing'}
 				>
 					<MainHeader/>
 				</Header>

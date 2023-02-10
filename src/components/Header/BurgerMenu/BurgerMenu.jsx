@@ -1,11 +1,10 @@
 import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
-import './BurgerMenu.css'
+import './BurgerMenu.css';
 
 const BurgerMenu = ({isOpen, onClose}) => {
 	return (
 		<div className={`burger__menu ${isOpen && 'open'}`}>
-
 			<div className='burger__menu_container '>
 				<button
 					className='burger__menu_close'
@@ -13,14 +12,21 @@ const BurgerMenu = ({isOpen, onClose}) => {
 					type='button'
 				/>
 				<nav className='burger__menu_nav'>
-					<a href='/' className='burger__menu_nav-link'>Главная</a>
-					<NavLink to='/movies' className='burger__menu_nav-link'>Фильмы</NavLink>
-					<NavLink to='/saved-movies' className='burger__menu_nav-link'>Сохраненные фильмы</NavLink>
+					<Link to='/' className='burger__menu_nav-link'>
+						Главная
+					</Link>
+					<NavLink to='/movies' className='burger__menu_nav-link'>
+						Фильмы
+					</NavLink>
+					<NavLink to='/saved-movies' className='burger__menu_nav-link'>
+						Сохраненные фильмы
+					</NavLink>
 				</nav>
 
-				<Link to='/profile' className='burger__menu_link_profile'>Аккаунт</Link>
+				<Link to='/profile' className='burger__menu_link_profile'>
+					Аккаунт
+				</Link>
 			</div>
-
 		</div>
 	);
 };

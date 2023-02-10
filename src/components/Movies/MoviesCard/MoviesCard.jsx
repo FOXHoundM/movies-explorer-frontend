@@ -1,9 +1,9 @@
 import React from 'react';
 import './MoviesCard.css';
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import {useState} from 'react';
+import {useLocation} from 'react-router-dom';
 
-const MoviesCard = ({ trailerLink, imageLink, duration, nameRU }) => {
+const MoviesCard = ({trailerLink, imageLink, duration, nameRU}) => {
 	const location = useLocation();
 	const hours = Math.floor(duration / 60);
 	const minutes = Math.floor(duration - hours * 60);
@@ -12,8 +12,6 @@ const MoviesCard = ({ trailerLink, imageLink, duration, nameRU }) => {
 	const cardLikeButtonClassName = `movies-card__favorite ${
 		isFavorite ? 'movies-card__favorite_active' : 'movies-card__favorite_inactive'
 	}`;
-
-
 
 
 	const handleFavoriteButton = (event) => {
@@ -25,8 +23,8 @@ const MoviesCard = ({ trailerLink, imageLink, duration, nameRU }) => {
 	};
 
 	const handleDeleteMovie = () => {
-		
-		
+
+
 	}
 
 	return (
@@ -34,10 +32,9 @@ const MoviesCard = ({ trailerLink, imageLink, duration, nameRU }) => {
 			<a
 				href={trailerLink}
 				target='_blank'
-				className='movies-card__trailer-link'
-				rel='noreferrer'
+				className='movies-card__trailer-link' rel="noreferrer"
 			>
-				<img src={imageLink} alt='фото фильма' className='movies-card__image' />
+				<img src={imageLink} alt='фото фильма' className='movies-card__image'/>
 			</a>
 			<div className='movies-card__block'>
 				<h3 className='movies-card__title'>{nameRU}</h3>
@@ -52,10 +49,10 @@ const MoviesCard = ({ trailerLink, imageLink, duration, nameRU }) => {
 				{
 					location.pathname === '/saved-movies' && (
 						<button
-						type='button'
-						className='movies-card__delete'
-						onClick={handleDeleteMovie}
-					></button>
+							type='button'
+							className='movies-card__delete'
+							onClick={handleDeleteMovie}
+						></button>
 					)
 				}
 			</div>

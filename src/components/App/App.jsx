@@ -1,5 +1,5 @@
 import './App.css';
-import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
+import {Route, Routes, useNavigate} from 'react-router-dom';
 import Main from '../Main/Main';
 import {useState} from 'react';
 import Movies from './../Movies/Movies';
@@ -8,9 +8,9 @@ import Register from './../User/Register/Register';
 import Profile from '../User/Profile/Profile';
 import {CurrentUserContext} from '../../context/CurrentUserContext';
 import PageNotFound from '../PageNotFound/PageNotFound';
-import ProtectedRoute from "../ProtectedRoute";
-import SavedMovies from "../SavedMovies/SavedMovies";
-import InfoToolTip from "../InfoTooltip/InfoTooltip";
+import ProtectedRoute from '../ProtectedRoute';
+import SavedMovies from '../SavedMovies/SavedMovies';
+import InfoToolTip from '../InfoTooltip/InfoTooltip';
 
 function App() {
 	// const location = useLocation();
@@ -31,7 +31,6 @@ function App() {
 		setIsToolTipOpen(false);
 	}
 
-
 	const onRegister = (name, email, password) => {
 		if ((name, email, password)) {
 			onLogin(email, password);
@@ -44,7 +43,7 @@ function App() {
 	const onLogin = (email, password) => {
 		if ((email, password)) {
 			setLoggedIn(true);
-			setIsToolTipOpen(true)
+			setIsToolTipOpen(true);
 			navigate('/movies');
 		} else {
 			setIsErrorLoginBtn(true);
@@ -71,31 +70,28 @@ function App() {
 	};
 
 	return (
-		<div className='App'>
+		<div className='page'>
 			<CurrentUserContext.Provider value={currentUser}>
 				<Routes>
 					<Route path='/' element={<Main loggedIn={loggedIn}/>}/>
 
-					<Route path='/movies' element={
-						<ProtectedRoute loggedIn={loggedIn}>
-							<Movies
+					<Route
+						path='/movies'
+						element={
+							<ProtectedRoute loggedIn={loggedIn}>
+								<Movies></Movies>
+							</ProtectedRoute>
+						}
+					/>
 
-							>
-
-							</Movies>
-						</ProtectedRoute>
-					}/>
-
-					<Route path='/saved-movies' element={
-						<ProtectedRoute loggedIn={loggedIn}>
-							<SavedMovies
-
-							>
-							</SavedMovies>
-
-
-						</ProtectedRoute>
-					}/>
+					<Route
+						path='/saved-movies'
+						element={
+							<ProtectedRoute loggedIn={loggedIn}>
+								<SavedMovies></SavedMovies>
+							</ProtectedRoute>
+						}
+					/>
 
 					<Route
 						path='/signin'
@@ -125,8 +121,8 @@ function App() {
 								onUpdateUser={onUpdateUser}
 								onSignOut={onSignOut}
 								isProfileMessage={isProfileMessage}
-								successReg="Вы успешно изменили данные!"
-								failedReg="Что-то пошло не так! Попробуйте ещё раз."
+								successReg='Вы успешно изменили данные!'
+								failedReg='Что-то пошло не так! Попробуйте ещё раз.'
 							/>
 						}
 					/>
@@ -135,14 +131,12 @@ function App() {
 				</Routes>
 
 				<InfoToolTip
-					successReg="Вы успешно зарегистрировались!"
-					failedReg="Что-то пошло не так! Попробуйте ещё раз."
+					successReg='Вы успешно зарегистрировались!'
+					failedReg='Что-то пошло не так! Попробуйте ещё раз.'
 					isOpen={isToolTipOpen}
 					onClose={closeAllPopups}
 					// isSuccess={isAuth}
 				/>
-
-
 			</CurrentUserContext.Provider>
 		</div>
 	);

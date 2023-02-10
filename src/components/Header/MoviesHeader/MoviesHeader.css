@@ -23,6 +23,7 @@
   text-decoration: none;
   color: black;
   transition: opacity 0.7s ease-in-out;
+  z-index: 2000;
 }
 
 .header__nav_item_link:hover {
@@ -42,12 +43,16 @@
   width: 100px;
   padding: 8px 0;
   background-color: #f9f9f9;
+  text-decoration: none;
+  color: black;
   transition: 0.7s ease-in-out;
+
 }
 
 .header__nav_item_link-button:hover {
   opacity: 0.8;
 }
+
 
 .header__nav_burger-button {
   background-image: url(../../../images/burger-menu.svg);
@@ -58,6 +63,7 @@
   font: inherit;
   cursor: pointer;
   right: 0;
+
 }
 
 

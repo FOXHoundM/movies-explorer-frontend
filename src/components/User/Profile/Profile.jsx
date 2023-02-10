@@ -48,6 +48,7 @@ const Profile = ({onUpdateUser, onSignOut, isProfileMessage}) => {
 		<>
 			<Header
 				color={'header__color_white'}
+				location={'header__container_movies'}
 			>
 				<MoviesHeader/>
 			</Header>
