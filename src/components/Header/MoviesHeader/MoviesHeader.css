@@ -31,14 +31,13 @@
   display: block;
   width: 0;
   height: 2px;
-  background-color: #fff;
+  background-color: #f9f9f9;
   transition: width 0.3s ease-out;
 }
 
 .header__nav_item:hover::after,
 .header__nav_item:focus::after {
   width: 100%;
-
 }
 
 
