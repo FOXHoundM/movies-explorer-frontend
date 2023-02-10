@@ -35,6 +35,7 @@ function App() {
 	const onRegister = (name, email, password) => {
 		if ((name, email, password)) {
 			onLogin(email, password);
+			setIsToolTipOpen(true);
 		} else {
 			setIsErrorRegisterBtn(true);
 		}
