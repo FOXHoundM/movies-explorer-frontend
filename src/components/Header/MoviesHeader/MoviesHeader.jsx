@@ -8,17 +8,18 @@ const MoviesHeader = () => {
 	const handleBurgerOpenClick = () => setIsBurgerOpen('open');
 	const handleBurgerCloseClick = () => setIsBurgerOpen('');
 
+	
 	return (
 		<>
 			<nav className='header__nav'>
 				<ul className='header__nav_list'>
 					<li className='header__nav_item'>
-						<NavLink to='/movies' className='header__nav_item_link header__nav_item_link-color'>
+						<NavLink to='/movies' className='header__nav_item_link'>
 							Фильмы
 						</NavLink>
 					</li>
 					<li className='header__nav_item'>
-						<NavLink to='/saved-movies' className='header__nav_item_link header__nav_item_link-color'>
+						<NavLink to='/saved-movies' className='header__nav_item_link'>
 							Сохранённые фильмы
 						</NavLink>
 					</li>

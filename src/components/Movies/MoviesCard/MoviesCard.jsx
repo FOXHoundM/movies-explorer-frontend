@@ -32,7 +32,8 @@ const MoviesCard = ({trailerLink, imageLink, duration, nameRU}) => {
 			<a
 				href={trailerLink}
 				target='_blank'
-				className='movies-card__trailer-link' rel="noreferrer"
+				className='movies-card__trailer-link'
+				rel="noreferrer"
 			>
 				<img src={imageLink} alt='фото фильма' className='movies-card__image'/>
 			</a>
