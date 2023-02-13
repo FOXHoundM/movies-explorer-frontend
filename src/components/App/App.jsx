@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { authorize, checkToken, register } from '../../utils/AuthApi';
 import InfoToolTip from '../InfoTooltip/InfoTooltip';
@@ -14,7 +14,7 @@ import Register from './../User/Register/Register';
 import './App.css';
 
 function App() {
-	const location = useLocation();
+	//const location = useLocation();
 	const navigate = useNavigate();
 
 	const [currentUser, setCurrentUser] = useState({});
@@ -34,40 +34,31 @@ function App() {
 		setIsToolTipOpen(false);
 	};
 
-	const registerCallback = useCallback(
-		async (regData) => {
-			try {
-				const res = await register(regData);
-				console.log(regData);
-				if (res) {
-					setIsAuth(true);
-					setIsToolTipOpen(true);
-				} else {
-					setIsErrorRegisterBtn(false);
-					//setIsAuth(false);
-					//setIsToolTipOpen(true)
-				}
-
-			} catch (err) {
-
-				if (err.status === 409) {
-					setIsErrorRegisterBtn(true)
-					setRegisterMessage('Пользователь с таким email уже зарегистрирован')
-				}
-				else if (err.status === 400) {
-					setIsErrorRegisterBtn(true);
-					setRegisterMessage(
-						'При регистрации пользователя произошла ошибка.'
-				);
-				} else {
-					
-				}
-				
-				
+	const registerCallback = useCallback(async (regData) => {
+		try {
+			const res = await register(regData);
+			console.log(regData);
+			if (res) {
+				setIsAuth(true);
+				setIsToolTipOpen(true);
+				navigate('/signin');
+			} else {
+				setIsErrorRegisterBtn(false);
+				setIsAuth(false);
+				setIsToolTipOpen(true);
 			}
-		},
-		[]
-	);
+		} catch (err) {
+			if (err.status === 409) {
+				setIsErrorRegisterBtn(true);
+				setRegisterMessage('Пользователь с таким email уже зарегистрирован');
+			} else if (err.status === 400) {
+				setIsErrorRegisterBtn(true);
+				setRegisterMessage('При регистрации пользователя произошла ошибка.');
+			} else {
+				console.log(err);
+			}
+		}
+	}, [navigate]);
 
 	const onLogin = (email, password) => {
 		authorize(email, password)
