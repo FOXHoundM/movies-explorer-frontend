@@ -40,7 +40,7 @@ const SearchForm = () => {
 
 					<button type='submit' className="search__button"></button>
 
-					<p className='search__error'>не то написал</p>
+					<p className='search__error'>{errorText}</p>
 				</form>
 
 				<CheckBox/>

@@ -1,59 +1,101 @@
-import './App.css';
-import {Route, Routes, useNavigate} from 'react-router-dom';
+import { useCallback, useState } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
+import { authorize, checkToken, register } from '../../utils/AuthApi';
+import InfoToolTip from '../InfoTooltip/InfoTooltip';
 import Main from '../Main/Main';
-import {useState} from 'react';
-import Movies from './../Movies/Movies';
-import Login from './../User/Login/Login';
-import Register from './../User/Register/Register';
-import Profile from '../User/Profile/Profile';
-import {CurrentUserContext} from '../../context/CurrentUserContext';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import ProtectedRoute from '../ProtectedRoute';
 import SavedMovies from '../SavedMovies/SavedMovies';
-import InfoToolTip from '../InfoTooltip/InfoTooltip';
+import Profile from '../User/Profile/Profile';
+import Movies from './../Movies/Movies';
+import Login from './../User/Login/Login';
+import Register from './../User/Register/Register';
+import './App.css';
 
 function App() {
-	// const location = useLocation();
+	const location = useLocation();
 	const navigate = useNavigate();
 
 	const [currentUser, setCurrentUser] = useState({});
 
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [isErrorRegisterBtn, setIsErrorRegisterBtn] = useState(false);
-	const [isRegisterMessage, setRegisterMessage] = useState(false);
+	const [isRegisterMessage, setRegisterMessage] = useState('');
 	const [isLoginMessage, setLoginMessage] = useState(false);
 	const [isErrorLoginBtn, setIsErrorLoginBtn] = useState(false);
 	const [isProfileMessage, setIsProfileMessage] = useState(false);
 
+	const [isAuth, setIsAuth] = useState(false);
+
 	const [isToolTipOpen, setIsToolTipOpen] = useState(false);
 
-	function closeAllPopups() {
+	const closeAllPopups = () => {
 		setIsToolTipOpen(false);
-	}
-
-	const onRegister = (name, email, password) => {
-		if ((name, email, password)) {
-			onLogin(email, password);
-			setIsToolTipOpen(true);
-		} else {
-			setIsErrorRegisterBtn(true);
-		}
 	};
+
+	const registerCallback = useCallback(
+		async (regData) => {
+			try {
+				const res = await register(regData);
+				console.log(regData);
+				if (res) {
+					setIsAuth(true);
+					setIsToolTipOpen(true);
+				} else {
+					setIsErrorRegisterBtn(false);
+					//setIsAuth(false);
+					//setIsToolTipOpen(true)
+				}
+
+			} catch (err) {
+
+				if (err.status === 409) {
+					setIsErrorRegisterBtn(true)
+					setRegisterMessage('Пользователь с таким email уже зарегистрирован')
+				}
+				else if (err.status === 400) {
+					setIsErrorRegisterBtn(true);
+					setRegisterMessage(
+						'При регистрации пользователя произошла ошибка.'
+				);
+				} else {
+					
+				}
+				
+				
+			}
+		},
+		[]
+	);
 
 	const onLogin = (email, password) => {
-		if ((email, password)) {
-			setLoggedIn(true);
-			setIsToolTipOpen(true);
-			navigate('/movies');
-		} else {
-			setIsErrorLoginBtn(true);
-		}
+		authorize(email, password)
+			.then((res) => {
+				if (res.token) {
+					localStorage.setItem('jwt', res.token);
+					setIsErrorLoginBtn(false);
+					checkToken(res.token).then((res) => {
+						if (res) {
+							setTimeout(() => navigate('/movies'), 800);
+							setLoggedIn(true);
+						}
+					});
+				}
+			})
+			.catch((err) => {
+				if (err.includes(401)) {
+					setLoginMessage('Вы ввели неправильный логин или пароль.');
+				}
+				setIsErrorLoginBtn(true);
+			});
 	};
+
 	const onUpdateUser = (name, email) => {
 		if ((name, email)) {
 			setIsProfileMessage(true);
 			setIsToolTipOpen(true);
-			setCurrentUser({name, email});
+			setCurrentUser({ name, email });
 		} else {
 			setIsProfileMessage(false);
 		}
@@ -73,7 +115,7 @@ function App() {
 		<div className='page'>
 			<CurrentUserContext.Provider value={currentUser}>
 				<Routes>
-					<Route path='/' element={<Main loggedIn={loggedIn}/>}/>
+					<Route path='/' element={<Main loggedIn={loggedIn} />} />
 
 					<Route
 						path='/movies'
@@ -108,7 +150,7 @@ function App() {
 						path='/signup'
 						element={
 							<Register
-								onRegister={onRegister}
+								onRegister={registerCallback}
 								isErrorRegisterBtn={isErrorRegisterBtn}
 								isRegisterMessage={isRegisterMessage}
 							/>
@@ -121,13 +163,11 @@ function App() {
 								onUpdateUser={onUpdateUser}
 								onSignOut={onSignOut}
 								isProfileMessage={isProfileMessage}
-								successReg='Вы успешно изменили данные!'
-								failedReg='Что-то пошло не так! Попробуйте ещё раз.'
 							/>
 						}
 					/>
 
-					<Route path='*' element={<PageNotFound/>}/>
+					<Route path='*' element={<PageNotFound />} />
 				</Routes>
 
 				<InfoToolTip
@@ -135,7 +175,7 @@ function App() {
 					failedReg='Что-то пошло не так! Попробуйте ещё раз.'
 					isOpen={isToolTipOpen}
 					onClose={closeAllPopups}
-					// isSuccess={isAuth}
+					isSuccess={isAuth}
 				/>
 			</CurrentUserContext.Provider>
 		</div>
