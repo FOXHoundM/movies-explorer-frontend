@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { authorize, checkToken, register } from '../../utils/AuthApi';
@@ -34,52 +34,27 @@ function App() {
 		setIsToolTipOpen(false);
 	};
 
-	const registerCallback = useCallback(async (regData) => {
-		try {
-			const res = await register(regData);
-			console.log(regData);
-			if (res) {
-				setIsAuth(true);
-				setIsToolTipOpen(true);
-				navigate('/signin');
-			} else {
-				setIsErrorRegisterBtn(false);
-				setIsAuth(false);
-				setIsToolTipOpen(true);
-			}
-		} catch (err) {
-			if (err.status === 409) {
-				setIsErrorRegisterBtn(true);
-				setRegisterMessage('Пользователь с таким email уже зарегистрирован');
-			} else if (err.status === 400) {
-				setIsErrorRegisterBtn(true);
-				setRegisterMessage('При регистрации пользователя произошла ошибка.');
-			} else {
-				console.log(err);
-			}
-		}
-	}, [navigate]);
-
-	const onLogin = (email, password) => {
-		authorize(email, password)
-			.then((res) => {
-				if (res.token) {
-					localStorage.setItem('jwt', res.token);
-					setIsErrorLoginBtn(false);
-					checkToken(res.token).then((res) => {
-						if (res) {
-							setTimeout(() => navigate('/movies'), 800);
-							setLoggedIn(true);
-						}
-					});
+	const registerCallback = (name, email, password) => {
+		register({name, email, password})
+			.then((data) => {
+				console.log('data', data)
+				if (data) {
+					onLogin(email, password);
 				}
+				setIsErrorRegisterBtn(false);
 			})
 			.catch((err) => {
-				if (err.includes(401)) {
-					setLoginMessage('Вы ввели неправильный логин или пароль.');
-				}
-				setIsErrorLoginBtn(true);
+				err.status !== 400
+					? setRegisterMessage('Пользователь с таким email уже зарегистрирован')
+					: setRegisterMessage(
+							'При регистрации пользователя произошла ошибка.'
+					  );
+				setIsErrorRegisterBtn(true);
 			});
+	};
+
+	const onLogin = (email, password) => {
+
 	};
 
 	const onUpdateUser = (name, email) => {

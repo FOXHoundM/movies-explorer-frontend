@@ -11,7 +11,7 @@ const Register = ({isErrorRegisterBtn, onRegister, isRegisterMessage}) => {
 
 	const errorClassNameBtn = isErrorRegisterBtn
 		? 'register__error register__error_visible'
-		: 'register__error';
+		: 'register__error ';
 
 	const handleRegSubmit = (e) => {
 		e.preventDefault();
