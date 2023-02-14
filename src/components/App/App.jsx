@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
-import { authorize, checkToken, register } from '../../utils/AuthApi';
+import { register } from '../../utils/AuthApi';
 import InfoToolTip from '../InfoTooltip/InfoTooltip';
 import Main from '../Main/Main';
 import PageNotFound from '../PageNotFound/PageNotFound';
@@ -35,11 +35,14 @@ function App() {
 	};
 
 	const registerCallback = (name, email, password) => {
-		register({name, email, password})
+		register(name, email, password)
 			.then((data) => {
-				console.log('data', data)
+				console.log('data', data);
 				if (data) {
 					onLogin(email, password);
+					setIsAuth(true);
+					setIsToolTipOpen(true);
+					navigate('/signin');
 				}
 				setIsErrorRegisterBtn(false);
 			})
@@ -48,14 +51,12 @@ function App() {
 					? setRegisterMessage('Пользователь с таким email уже зарегистрирован')
 					: setRegisterMessage(
 							'При регистрации пользователя произошла ошибка.'
-					  );
+					);
 				setIsErrorRegisterBtn(true);
 			});
 	};
 
-	const onLogin = (email, password) => {
-
-	};
+	const onLogin = (email, password) => {};
 
 	const onUpdateUser = (name, email) => {
 		if ((name, email)) {

@@ -16,7 +16,7 @@ const Register = ({isErrorRegisterBtn, onRegister, isRegisterMessage}) => {
 	const handleRegSubmit = (e) => {
 		e.preventDefault();
 		const {name, email, password} = controlInput.values;
-		onRegister({name, email, password});
+		onRegister(name, email, password);
 		controlInput.resetForm();
 	};
 
