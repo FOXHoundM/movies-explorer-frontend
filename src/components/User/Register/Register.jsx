@@ -31,6 +31,7 @@ const Register = ({isErrorRegisterBtn, onRegister, isRegisterMessage}) => {
 				</div>
 
 				<form noValidate className='register__form' onSubmit={handleRegSubmit}>
+					<fieldset className="register__field">	
 					<label className='register__label'>
 						<p className='register__label_title register__label_title_name'>Имя</p>
 						<input
@@ -85,7 +86,8 @@ const Register = ({isErrorRegisterBtn, onRegister, isRegisterMessage}) => {
 							required
 						/>
 						<p className={errorClassName}>{password}</p>
-					</label>
+						</label>
+						</fieldset>
 
 
 					<p className={errorClassNameBtn}>{isRegisterMessage}</p>
@@ -99,7 +101,8 @@ const Register = ({isErrorRegisterBtn, onRegister, isRegisterMessage}) => {
 					<p className='register__subtitle'>
 						Уже зарегистрированы?{' '}
 						<Link to='/signin' className='register__subtitle_link'>Войти</Link>
-					</p>
+						</p>
+						
 				</form>
 			</main>
 

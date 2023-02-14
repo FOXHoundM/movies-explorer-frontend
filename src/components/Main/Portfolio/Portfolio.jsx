@@ -16,7 +16,9 @@ const Portfolio = () => {
 							href='https://foxhoundm.github.io/how-to-learn/'
 							target='_blank'
 							rel="noreferrer"
-						></a>
+						>
+
+						</a>
 					</li>
 					<li className="portfolio__item">
 						<a href="https://foxhoundm.github.io/russian-travel/" target='_blank'
@@ -25,7 +27,9 @@ const Portfolio = () => {
 							className='portfolio__arrow'
 							href='https://foxhoundm.github.io/russian-travel/'
 							target='_blank' rel="noreferrer"
-						></a>
+						>
+
+						</a>
 
 					</li>
 					<li className="portfolio__item">
@@ -35,7 +39,9 @@ const Portfolio = () => {
 							className='portfolio__arrow'
 							href='https://foxhoundm.github.io/mesto-react-auth/'
 							target='_blank' rel="noreferrer"
-						></a>
+						>
+							
+						</a>
 					</li>
 				</ul>
 
