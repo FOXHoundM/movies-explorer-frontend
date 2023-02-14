@@ -1,7 +1,12 @@
-import { useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
-import { register } from '../../utils/AuthApi';
+import {
+	authorize,
+	checkToken,
+	register,
+	updateUserInfo,
+} from '../../utils/AuthApi';
 import InfoToolTip from '../InfoTooltip/InfoTooltip';
 import Main from '../Main/Main';
 import PageNotFound from '../PageNotFound/PageNotFound';
@@ -14,7 +19,7 @@ import Register from './../User/Register/Register';
 import './App.css';
 
 function App() {
-	//const location = useLocation();
+	const location = useLocation();
 	const navigate = useNavigate();
 
 	const [currentUser, setCurrentUser] = useState({});
@@ -34,7 +39,34 @@ function App() {
 		setIsToolTipOpen(false);
 	};
 
-	const registerCallback = (name, email, password) => {
+	const checkTokenCallback = useCallback(async () => {
+		if (localStorage.getItem('jwt')) {
+			const jwt = localStorage.getItem('jwt');
+			//console.log('jwt', jwt)
+
+			if (!jwt) {
+				throw new Error('No token in storage');
+			}
+
+			const res = await checkToken(jwt);
+			if (!res) {
+				throw new Error('Invalid user');
+			}
+			if (res) {
+				setLoggedIn(true);
+				navigate(location.pathname);
+			}
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	useEffect(() => {
+		checkTokenCallback().catch((err) => {
+			console.log(`Ошибка: ${err}`);
+		});
+	}, [checkTokenCallback]);
+
+	const onRegister = (name, email, password) => {
 		register(name, email, password)
 			.then((data) => {
 				console.log('data', data);
@@ -42,40 +74,72 @@ function App() {
 					onLogin(email, password);
 					setIsAuth(true);
 					setIsToolTipOpen(true);
-					navigate('/signin');
+					setTimeout(() => navigate('/signin'), 300);
 				}
 				setIsErrorRegisterBtn(false);
 			})
 			.catch((err) => {
 				err.status !== 400
-					? setRegisterMessage('Пользователь с таким email уже зарегистрирован')
+					? setRegisterMessage(
+							'Пользователь c таким email уже существует, попробуйте другой email'
+					  )
 					: setRegisterMessage(
 							'При регистрации пользователя произошла ошибка.'
-					);
+					  );
 				setIsErrorRegisterBtn(true);
 			});
 	};
 
-	const onLogin = (email, password) => {};
+	const onLogin = (email, password) => {
+		authorize(email, password)
+			.then((res) => {
+				if (res.token) {
+					localStorage.setItem('jwt', res.token);
+					console.log(res);
+					setIsErrorLoginBtn(false);
+					checkToken(res.token).then((res) => {
+						if (res) {
+							setLoggedIn(true);
+							setIsAuth(true);
+							setCurrentUser(res)
+							setIsToolTipOpen(true);
+							setTimeout(() => navigate('/movies'), 300);
+						}
+					});
+				}
+			})
+			.catch((err) => {
+				if (err.includes(401)) {
+					setLoginMessage('Вы ввели неправильный логин или пароль.');
+				}
+				setIsErrorLoginBtn(true);
+			});
+	};
 
 	const onUpdateUser = (name, email) => {
-		if ((name, email)) {
-			setIsProfileMessage(true);
-			setIsToolTipOpen(true);
-			setCurrentUser({ name, email });
-		} else {
-			setIsProfileMessage(false);
-		}
+		updateUserInfo(name, email)
+			.then((data) => {
+				console.log('data', data)
+				setIsProfileMessage(true);
+				setCurrentUser(data);
+			})
+			.catch((err) => {
+				console.error(err);
+			})
+			.finally(() => {
+				setTimeout(() => setIsProfileMessage(false), 1000);
+			});
 	};
 
 	const onSignOut = () => {
+		localStorage.clear();
 		navigate('/');
 		setLoggedIn(false);
 		setCurrentUser({});
+		setIsErrorRegisterBtn(false);
 		setRegisterMessage(false);
 		setLoginMessage(false);
 		setIsErrorLoginBtn(false);
-		setIsErrorRegisterBtn(false);
 	};
 
 	return (
@@ -103,6 +167,19 @@ function App() {
 					/>
 
 					<Route
+						path='/profile'
+						element={
+							<ProtectedRoute loggedIn={loggedIn}>
+								<Profile
+									onUpdateUser={onUpdateUser}
+									onSignOut={onSignOut}
+									isProfileMessage={isProfileMessage}
+								/>
+							</ProtectedRoute>
+						}
+					/>
+
+					<Route
 						path='/signin'
 						element={
 							<Login
@@ -117,19 +194,9 @@ function App() {
 						path='/signup'
 						element={
 							<Register
-								onRegister={registerCallback}
+								onRegister={onRegister}
 								isErrorRegisterBtn={isErrorRegisterBtn}
 								isRegisterMessage={isRegisterMessage}
-							/>
-						}
-					/>
-					<Route
-						path='/profile'
-						element={
-							<Profile
-								onUpdateUser={onUpdateUser}
-								onSignOut={onSignOut}
-								isProfileMessage={isProfileMessage}
 							/>
 						}
 					/>

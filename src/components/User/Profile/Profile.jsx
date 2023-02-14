@@ -54,7 +54,7 @@ const Profile = ({ onUpdateUser, onSignOut, isProfileMessage }) => {
 
 			<main className='profile'>
 				<div className='profile__container'>
-					<h1 className='profile__title'>Привет, Микаэль</h1>
+					<h1 className='profile__title'>Привет, {currentUser.name}</h1>
 
 					<form className='profile__form' onSubmit={handleSubmit} noValidate>
 						<fieldset className='profile__field'>
@@ -67,7 +67,7 @@ const Profile = ({ onUpdateUser, onSignOut, isProfileMessage }) => {
 									type='name'
 									autoComplete='off'
 									name='name'
-									placeholder='Микаэль'
+									placeholder={currentUser.name}
 									id='name'
 									required
 									pattern='[A-Za-zА-Яа-яЁё\s-]+'
@@ -89,7 +89,7 @@ const Profile = ({ onUpdateUser, onSignOut, isProfileMessage }) => {
 									type='email'
 									autoComplete='off'
 									name='email'
-									placeholder='Email'
+									placeholder={currentUser.email}
 									id='email'
 									required
 									pattern='^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
