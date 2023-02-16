@@ -22,6 +22,7 @@ const InfoToolTip = ({ name, isOpen, onClose, isSuccess, successReg, failedReg }
 
 			</div>
 		</div>
+
 	);
 };
 

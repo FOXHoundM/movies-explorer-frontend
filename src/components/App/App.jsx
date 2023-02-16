@@ -4,6 +4,7 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 import {
 	authorize,
 	checkToken,
+	getUserInfo,
 	register,
 	updateUserInfo,
 } from '../../utils/AuthApi';
@@ -42,7 +43,7 @@ function App() {
 	const checkTokenCallback = useCallback(async () => {
 		if (localStorage.getItem('jwt')) {
 			const jwt = localStorage.getItem('jwt');
-			//console.log('jwt', jwt)
+			console.log('🚀 ~ file: App.jsx:46 ~ checkTokenCallback ~ jwt', jwt);
 
 			if (!jwt) {
 				throw new Error('No token in storage');
@@ -57,8 +58,7 @@ function App() {
 				navigate(location.pathname);
 			}
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [navigate, location.pathname]);
 
 	useEffect(() => {
 		checkTokenCallback().catch((err) => {
@@ -101,7 +101,7 @@ function App() {
 						if (res) {
 							setLoggedIn(true);
 							setIsAuth(true);
-							setCurrentUser(res)
+							setCurrentUser(res);
 							setIsToolTipOpen(true);
 							setTimeout(() => navigate('/movies'), 300);
 						}
@@ -116,10 +116,22 @@ function App() {
 			});
 	};
 
+	useEffect(() => {
+		if (loggedIn) {
+			getUserInfo()
+				.then((data) => {
+					setCurrentUser(data);
+				})
+				.catch((err) => {
+					console.error(`Данные пользователя не получены: ${err}`);
+				});
+		}
+	});
+
 	const onUpdateUser = (name, email) => {
 		updateUserInfo(name, email)
 			.then((data) => {
-				console.log('data', data)
+				console.log('data', data);
 				setIsProfileMessage(true);
 				setCurrentUser(data);
 			})
