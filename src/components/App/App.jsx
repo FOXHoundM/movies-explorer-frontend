@@ -40,32 +40,6 @@ function App() {
 		setIsToolTipOpen(false);
 	};
 
-	const checkTokenCallback = useCallback(async () => {
-		if (localStorage.getItem('jwt')) {
-			const jwt = localStorage.getItem('jwt');
-			console.log('🚀 ~ file: App.jsx:46 ~ checkTokenCallback ~ jwt', jwt);
-
-			if (!jwt) {
-				throw new Error('No token in storage');
-			}
-
-			const res = await checkToken(jwt);
-			if (!res) {
-				throw new Error('Invalid user');
-			}
-			if (res) {
-				setLoggedIn(true);
-				navigate(location.pathname);
-			}
-		}
-	}, [navigate, location.pathname]);
-
-	useEffect(() => {
-		checkTokenCallback().catch((err) => {
-			console.log(`Ошибка: ${err}`);
-		});
-	}, [checkTokenCallback]);
-
 	const onRegister = (name, email, password) => {
 		register(name, email, password)
 			.then((data) => {
@@ -103,7 +77,7 @@ function App() {
 							setIsAuth(true);
 							setCurrentUser(res);
 							setIsToolTipOpen(true);
-							setTimeout(() => navigate('/movies'), 300);
+							setTimeout(() => navigate('/movies'), 800);
 						}
 					});
 				}
@@ -116,22 +90,57 @@ function App() {
 			});
 	};
 
+	const onSignOut = useCallback (() => {
+		localStorage.removeItem('jwt');
+		navigate('/');
+		setLoggedIn(false);
+		setCurrentUser({});
+		setIsErrorRegisterBtn(false);
+		setRegisterMessage(false);
+		setLoginMessage(false);
+		setIsErrorLoginBtn(false);
+	}, [navigate])
+
 	useEffect(() => {
 		if (loggedIn) {
 			getUserInfo()
 				.then((data) => {
+					console.log("🚀 ~ file: App.jsx:108 ~ .then ~ data", data)
 					setCurrentUser(data);
 				})
 				.catch((err) => {
 					console.error(`Данные пользователя не получены: ${err}`);
 				});
 		}
-	});
+	}, [loggedIn]);
+
+	const checkTokenCallback = useCallback(() => {
+		const jwt = localStorage.getItem('jwt');
+
+		if (jwt) {
+			checkToken(jwt)
+				.then((res) => {
+					if (res) {
+						setLoggedIn(true);
+						navigate(location.pathname)
+					}
+				})
+				.catch((err) => {
+					console.error(err);
+				});
+		}
+	}, [navigate, location.pathname]);
+
+	useEffect(() => {
+		checkTokenCallback();
+	}, [checkTokenCallback]);
+
+	
 
 	const onUpdateUser = (name, email) => {
 		updateUserInfo(name, email)
 			.then((data) => {
-				console.log('data', data);
+				console.log("🚀 ~ file: App.jsx:143 ~ .then ~ data", data)
 				setIsProfileMessage(true);
 				setCurrentUser(data);
 			})
@@ -143,16 +152,7 @@ function App() {
 			});
 	};
 
-	const onSignOut = () => {
-		localStorage.clear();
-		navigate('/');
-		setLoggedIn(false);
-		setCurrentUser({});
-		setIsErrorRegisterBtn(false);
-		setRegisterMessage(false);
-		setLoginMessage(false);
-		setIsErrorLoginBtn(false);
-	};
+
 
 	return (
 		<div className='page'>
