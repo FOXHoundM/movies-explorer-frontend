@@ -4,11 +4,11 @@ import Preloader from './Preloader/Preloader';
 import Header from '../Header/Header';
 import MoviesHeader from '../Header/MoviesHeader/MoviesHeader';
 import React, {useState} from 'react';
-import {movies} from '../../utils/constants';
+//import {movies} from '../../utils/constants';
 import Footer from '../Footer/Footer';
 import './Movies.css';
 
-export default function Movies() {
+export default function Movies({movies}) {
 	const [isPreloaderOpen, setIsPreloaderOpen] = useState(false);
 
 
@@ -27,7 +27,9 @@ export default function Movies() {
 			</Header>
 			<main className='movies'>
 				<SearchForm onSubmit={handleSubmit}/>
-				<MoviesCardList movies={movies} cardType='searchMovie'/>
+				<MoviesCardList
+					movies={movies}
+					cardType='searchMovie' />
 
 				<button type='button' className='movies__button'>
 					Еще

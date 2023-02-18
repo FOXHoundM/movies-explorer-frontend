@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../../context/CurrentUserContext';
 import useFormWithValidation from '../../../utils/hooks/useFormValidation';
 import Header from '../../Header/Header';
@@ -7,7 +6,6 @@ import MoviesHeader from '../../Header/MoviesHeader/MoviesHeader';
 import './Profile.css';
 
 const Profile = ({ onUpdateUser, onSignOut, isProfileMessage }) => {
-	const navigate = useNavigate();
 	const currentUser = useContext(CurrentUserContext);
 	const [isEditInput, setIsEditInput] = useState(true);
 	const controlInput = useFormWithValidation();
@@ -37,8 +35,8 @@ const Profile = ({ onUpdateUser, onSignOut, isProfileMessage }) => {
 		} else {
 			onUpdateUser(name, email);
 		}
+
 		setTimeout(() => setIsEditInput((state) => !state), 1000);
-		//setTimeout(() => navigate('/'), 1000);
 		controlInput.resetForm();
 	};
 

@@ -31,6 +31,7 @@ function App() {
 	const [isLoginMessage, setLoginMessage] = useState(false);
 	const [isErrorLoginBtn, setIsErrorLoginBtn] = useState(false);
 	const [isProfileMessage, setIsProfileMessage] = useState(false);
+	const [movies, setMovies] = useState([]);
 
 	const [isAuth, setIsAuth] = useState(false);
 
@@ -90,22 +91,21 @@ function App() {
 			});
 	};
 
-	const onSignOut = useCallback (() => {
+	const onSignOut = useCallback(() => {
 		localStorage.removeItem('jwt');
-		navigate('/');
 		setLoggedIn(false);
 		setCurrentUser({});
 		setIsErrorRegisterBtn(false);
 		setRegisterMessage(false);
 		setLoginMessage(false);
 		setIsErrorLoginBtn(false);
-	}, [navigate])
+	}, []);
 
 	useEffect(() => {
 		if (loggedIn) {
 			getUserInfo()
 				.then((data) => {
-					console.log("🚀 ~ file: App.jsx:108 ~ .then ~ data", data)
+					console.log('🚀 ~ file: App.jsx:108 ~ .then ~ data', data);
 					setCurrentUser(data);
 				})
 				.catch((err) => {
@@ -122,7 +122,7 @@ function App() {
 				.then((res) => {
 					if (res) {
 						setLoggedIn(true);
-						navigate(location.pathname)
+						navigate(location.pathname);
 					}
 				})
 				.catch((err) => {
@@ -135,12 +135,10 @@ function App() {
 		checkTokenCallback();
 	}, [checkTokenCallback]);
 
-	
-
 	const onUpdateUser = (name, email) => {
 		updateUserInfo(name, email)
 			.then((data) => {
-				console.log("🚀 ~ file: App.jsx:143 ~ .then ~ data", data)
+				console.log('🚀 ~ file: App.jsx:143 ~ .then ~ data', data);
 				setIsProfileMessage(true);
 				setCurrentUser(data);
 			})
@@ -152,7 +150,11 @@ function App() {
 			});
 	};
 
-
+	const searchMovies = (movies, name) => {
+		return movies.filter((item) =>
+			item.nameRU.toLowerCase().includes(name.toLowerCase())
+		);
+	};
 
 	return (
 		<div className='page'>
@@ -160,36 +162,32 @@ function App() {
 				<Routes>
 					<Route path='/' element={<Main loggedIn={loggedIn} />} />
 
-					<Route
-						path='/movies'
-						element={
-							<ProtectedRoute loggedIn={loggedIn}>
-								<Movies></Movies>
-							</ProtectedRoute>
-						}
-					/>
+					<Route element={<ProtectedRoute loggedIn={loggedIn} />}>
+						
+						<Route
+							path='/movies'
+							element={<Movies
+								movies={movies}
+							></Movies>} />
 
-					<Route
-						path='/saved-movies'
-						element={
-							<ProtectedRoute loggedIn={loggedIn}>
-								<SavedMovies></SavedMovies>
-							</ProtectedRoute>
-						}
-					/>
+						<Route
+							path='/saved-movies'
+							element={<SavedMovies
+								movies={movies}
+							></SavedMovies>}
+						/>
 
-					<Route
-						path='/profile'
-						element={
-							<ProtectedRoute loggedIn={loggedIn}>
+						<Route
+							path='/profile'
+							element={
 								<Profile
 									onUpdateUser={onUpdateUser}
 									onSignOut={onSignOut}
 									isProfileMessage={isProfileMessage}
 								/>
-							</ProtectedRoute>
-						}
-					/>
+							}
+						/>
+					</Route>
 
 					<Route
 						path='/signin'
