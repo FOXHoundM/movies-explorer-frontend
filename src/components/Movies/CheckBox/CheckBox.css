@@ -1,65 +1,56 @@
-.checkbox {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 18px;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  gap: 12px;
+.checkbox__title {
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 138%;
 }
 
-.checkbox__switch {
-  width: 36px;
-  height: 20px;
-  position: relative;
+.checkbox__container {
+	display: flex;
+	gap: 14px;
+	align-items: center;
+	justify-content: center;
 }
 
-.checkbox__input {
-  width: 0;
-  height: 0;
-  opacity: 0;
+.custom-checkbox {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
 }
 
-.checkbox__slider {
-  position: absolute;
-  cursor: pointer;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  border-radius: 20px;
-  background-color: #f2f2f2;
-  transition: 0.4s;
+.custom-checkbox + label {
+	display: inline-flex;
+	align-items: center;
+	cursor: pointer;
+	user-select: none;
 }
 
-.checkbox__slider::before {
-  content: '';
-  position: absolute;
-  cursor: pointer;
-  left: 2px;
-  bottom: 2px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background-color: #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  transition: 0.4s;
+.custom-checkbox + label::before {
+	content: '';
+	display: inline-block;
+	flex-grow: 0;
+	flex-shrink: 0;
+	border-radius: 20px;
+	width: 36px;
+	height: 20px;
+	background-image: url(../../../images/checkbox-green.svg);
+	background-position: right;
+	background-repeat: no-repeat;
+	background-color: #3ddc84;
+	transition: 0.5s;
 }
 
-.checkbox__input:checked + .checkbox__slider {
-  background-color: #2be080;
+.custom-checkbox:checked + label::before {
+	border-radius: 20px;
+	background: #ebebeb;
+	background-image: url(../../../images/checkbox.svg);
+	background-position: left;
+	background-repeat: no-repeat;
+	transition: 0.5s;
 }
 
-.checkbox__input:checked + .checkbox__slider::before {
-  transform: translateX(16px);
-}
-
-@media screen and (max-width: 450px) {
-  .checkbox {
-    font-size: 11px;
-    line-height: 18px;
-  }
+@media screen and (max-width: 370px) {
+	.checkbox__title {
+		font-size: 11px;
+		line-height: 18px;
+	}
 }
