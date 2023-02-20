@@ -57,4 +57,4 @@
 - Все изображения оптимизированы — в том числе и .svg.
 - Ссылка на макет: https://disk.yandex.ru/d/9VebZ6MVeCLeUw
 - Ссылка на pull request: https://github.com/FOXHoundM/movies-explorer-frontend/tree/level-3;
-- Ссылка на домен: https://api.foxhound.nomoredomains.rocks;
+- Ссылка на домен: https://foxhound.nomoredomains.rocks;
