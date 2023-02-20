@@ -1,6 +1,6 @@
-import {useCallback, useEffect, useState} from 'react';
-import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
-import {CurrentUserContext} from '../../context/CurrentUserContext';
+import { useCallback, useEffect, useState } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 import {
 	authorize,
 	checkToken,
@@ -63,11 +63,11 @@ function App() {
 			.catch((err) => {
 				err.status !== 400
 					? setRegisterMessage(
-						'Пользователь c таким email уже существует, попробуйте другой email'
-					)
+							'Пользователь c таким email уже существует, попробуйте другой email'
+					  )
 					: setRegisterMessage(
-						'При регистрации пользователя произошла ошибка.'
-					);
+							'При регистрации пользователя произошла ошибка.'
+					  );
 				setIsErrorRegisterBtn(true);
 			});
 	};
@@ -143,14 +143,14 @@ function App() {
 				.then((res) => {
 					if (res) {
 						setLoggedIn(true);
-						navigate(location.pathname);
+						//navigate(location.pathname);
 					}
 				})
 				.catch((err) => {
 					console.error(err);
 				});
 		}
-	}, [navigate, location.pathname]);
+	}, []);
 
 	useEffect(() => {
 		checkTokenCallback();
@@ -287,9 +287,9 @@ function App() {
 		<div className='page'>
 			<CurrentUserContext.Provider value={currentUser}>
 				<Routes>
-					<Route path='/' element={<Main loggedIn={loggedIn}/>}/>
+					<Route path='/' element={<Main loggedIn={loggedIn} />} />
 
-					<Route element={<ProtectedRoute loggedIn={loggedIn}/>}>
+					<Route element={<ProtectedRoute loggedIn={loggedIn} />}>
 						<Route
 							path='/movies'
 							element={
@@ -366,7 +366,7 @@ function App() {
 						}
 					/>
 
-					<Route path='*' element={<PageNotFound/>}/>
+					<Route path='*' element={<PageNotFound />} />
 				</Routes>
 
 				<InfoToolTip
