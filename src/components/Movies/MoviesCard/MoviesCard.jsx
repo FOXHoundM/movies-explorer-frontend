@@ -1,28 +1,28 @@
 import React from 'react';
-import {useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
 
 const MoviesCard = ({
-											name,
-											duration,
-											thumbnail,
-											trailerLink,
-											savedMovies,
-											onSave,
-											onDelete,
-											movie,
-											allSavedMovies,
-										}) => {
+	name,
+	duration,
+	thumbnail,
+	trailerLink,
+	savedMovies,
+	onSave,
+	onDelete,
+	movie,
+	allSavedMovies,
+}) => {
 	const location = useLocation();
 	const hours = Math.floor(duration / 60);
 	const minutes = Math.floor(duration - hours * 60);
 	const isSaved = savedMovies.some((m) => m.movieId === movie.id);
 	const isAllSaved = allSavedMovies.some((m) => m.movieId === movie.id);
 
-	const saveButtonClassName = isSaved || isAllSaved
-		? 'movies-card__favorite movies-card__favorite_active'
-		: 'movies-card__favorite movies-card__favorite_inactive';
-
+	const saveButtonClassName =
+		isSaved || isAllSaved
+			? 'movies-card__favorite movies-card__favorite_active'
+			: 'movies-card__favorite movies-card__favorite_inactive';
 
 	const handleSaveClick = () => {
 		if (isSaved) {
@@ -42,7 +42,7 @@ const MoviesCard = ({
 				className='movies-card__trailer-link'
 				rel='noreferrer'
 			>
-				<img src={thumbnail} alt='фото фильма' className='movies-card__image'/>
+				<img src={thumbnail} alt='фото фильма' className='movies-card__image' />
 			</a>
 			<div className='movies-card__block'>
 				<h3 className='movies-card__title'>{name}</h3>

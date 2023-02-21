@@ -100,13 +100,22 @@ function App() {
 
 	const onSignOut = useCallback(() => {
 		localStorage.removeItem('jwt');
+		navigate('/');
 		setLoggedIn(false);
 		setCurrentUser({});
 		setIsErrorRegisterBtn(false);
 		setRegisterMessage(false);
 		setLoginMessage(false);
 		setIsErrorLoginBtn(false);
-	}, []);
+		setIsLoading(false);
+		setIsFailed(false);
+		setMovies([]);
+		setSavedMovies([]);
+		setAllSavedMovies([]);
+		setChecked(true);
+		setCheckedSaveMovies(true);
+		setIsNotFound(false);
+	}, [navigate]);
 
 	useEffect(() => {
 		if (loggedIn) {
@@ -197,6 +206,7 @@ function App() {
 				setSavedMovies(newMoviesList);
 			})
 			.catch((err) => {
+				setIsToolTipOpen(true);
 				console.log(err);
 			});
 	};
