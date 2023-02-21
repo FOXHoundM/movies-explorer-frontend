@@ -18,7 +18,8 @@ const AboutMe = () => {
 							свободное время. Планирую продолжить свое развитие в этой сфере.
 							Помимо обучения играю в компьютерные игры и люблю читать фэнтези.</p>
 
-						<a href="https://github.com/FOXHoundM" target='_blank' className="about-me__link">Github</a>
+						<a href="https://github.com/FOXHoundM" target='_blank' className="about-me__link"
+							 rel="noreferrer">Github</a>
 
 					</div>
 

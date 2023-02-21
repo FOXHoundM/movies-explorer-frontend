@@ -1,60 +1,66 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
-import {useState} from 'react';
-import {useLocation} from 'react-router-dom';
 
-const MoviesCard = ({trailerLink, imageLink, duration, nameRU}) => {
+const MoviesCard = ({
+	name,
+	duration,
+	thumbnail,
+	trailerLink,
+	savedMovies,
+	onSave,
+	onDelete,
+	movie,
+	allSavedMovies,
+}) => {
 	const location = useLocation();
 	const hours = Math.floor(duration / 60);
 	const minutes = Math.floor(duration - hours * 60);
-	const [isFavorite, setIsFavorite] = useState(false);
+	const isSaved = savedMovies.some((m) => m.movieId === movie.id);
+	const isAllSaved = allSavedMovies.some((m) => m.movieId === movie.id);
 
-	const cardLikeButtonClassName = `movies-card__favorite ${
-		isFavorite ? 'movies-card__favorite_active' : 'movies-card__favorite_inactive'
-	}`;
+	const saveButtonClassName =
+		isSaved || isAllSaved
+			? 'movies-card__favorite movies-card__favorite_active'
+			: 'movies-card__favorite movies-card__favorite_inactive';
 
-
-	const handleFavoriteButton = (event) => {
-		if (event.target.classList.contains('movies-card__favorite_active')) {
-			setIsFavorite(false);
+	const handleSaveClick = () => {
+		if (isSaved) {
+			allSavedMovies.some((m) => m.movieId === movie.id);
 		} else {
-			setIsFavorite(true);
+			onSave(movie);
 		}
 	};
 
-	const handleDeleteMovie = () => {
-
-
-	}
+	const handleDeleteMovie = () => onDelete(movie);
 
 	return (
 		<li className='movies-card__item'>
 			<a
 				href={trailerLink}
 				target='_blank'
-				className='movies-card__trailer-link' rel="noreferrer"
+				className='movies-card__trailer-link'
+				rel='noreferrer'
 			>
-				<img src={imageLink} alt='фото фильма' className='movies-card__image'/>
+				<img src={thumbnail} alt='фото фильма' className='movies-card__image' />
 			</a>
 			<div className='movies-card__block'>
-				<h3 className='movies-card__title'>{nameRU}</h3>
+				<h3 className='movies-card__title'>{name}</h3>
 
 				{location.pathname === '/movies' && (
 					<button
 						type='button'
-						className={cardLikeButtonClassName}
-						onClick={handleFavoriteButton}
+						className={saveButtonClassName}
+						onClick={handleSaveClick}
 					></button>
 				)}
-				{
-					location.pathname === '/saved-movies' && (
-						<button
-							type='button'
-							className='movies-card__delete'
-							onClick={handleDeleteMovie}
-						></button>
-					)
-				}
+				{location.pathname === '/saved-movies' && (
+					<button
+						type='button'
+						className=' movies-card__favorite movies-card__favorite_delete'
+						onClick={handleDeleteMovie}
+					></button>
+				)}
 			</div>
 			<div className='movies-card__time'>
 				{hours}ч{minutes}м

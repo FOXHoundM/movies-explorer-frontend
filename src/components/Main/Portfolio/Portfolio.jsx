@@ -10,31 +10,38 @@ const Portfolio = () => {
 				<ul className="portfolio__list">
 					<li className="portfolio__item">
 						<a href="https://foxhoundm.github.io/how-to-learn/" target='_blank'
-							 className="portfolio__link">Статичный сайт</a>
+							 className="portfolio__link" rel="noopener noreferrer">Статичный сайт</a>
 						<a
 							className='portfolio__arrow'
 							href='https://foxhoundm.github.io/how-to-learn/'
 							target='_blank'
-						/>
+							rel="noreferrer"
+						>
+
+						</a>
 					</li>
 					<li className="portfolio__item">
 						<a href="https://foxhoundm.github.io/russian-travel/" target='_blank'
-							 className="portfolio__link">Адаптивный сайт</a>
+							 className="portfolio__link" rel="noreferrer">Адаптивный сайт</a>
 						<a
 							className='portfolio__arrow'
 							href='https://foxhoundm.github.io/russian-travel/'
-							target='_blank'
-						/>
+							target='_blank' rel="noreferrer"
+						>
+
+						</a>
 
 					</li>
 					<li className="portfolio__item">
 						<a href="https://foxhoundm.github.io/mesto-react-auth/" target='_blank'
-							 className="portfolio__link">Одностраничное приложение</a>
+							 className="portfolio__link" rel="noreferrer">Одностраничное приложение</a>
 						<a
 							className='portfolio__arrow'
 							href='https://foxhoundm.github.io/mesto-react-auth/'
-							target='_blank'
-						/>
+							target='_blank' rel="noreferrer"
+						>
+							
+						</a>
 					</li>
 				</ul>
 

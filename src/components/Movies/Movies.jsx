@@ -1,42 +1,64 @@
-import SearchForm from './SearchForm/SearchForm';
-import MoviesCardList from './MoviesCardList/MoviesCardList';
-import Preloader from './Preloader/Preloader';
+import React from 'react';
 import Header from '../Header/Header';
 import MoviesHeader from '../Header/MoviesHeader/MoviesHeader';
-import React, {useState} from 'react';
-import {movies} from '../../utils/constants';
+import MoviesCardList from './MoviesCardList/MoviesCardList';
+import Preloader from './Preloader/Preloader';
+import SearchForm from './SearchForm/SearchForm';
 import Footer from '../Footer/Footer';
 import './Movies.css';
 
-export default function Movies() {
-	const [isPreloaderOpen, setIsPreloaderOpen] = useState(false);
-
-
-	const handleSubmit = (evt) => {
-		evt.preventDefault();
-		setIsPreloaderOpen(true);
-	}
-
+export default function Movies({
+	movies,
+	checked,
+	onCheckbox,
+	checkedSaveMovies,
+	isNotFound,
+	isFailed,
+	savedMovies,
+	onSave,
+	onDelete,
+	onSubmit,
+	searchKeyword,
+	allSavedMovies,
+	isLoading
+}) {
 	return (
 		<>
 			<Header
 				color={'header__color_white'}
 				location={'header__container_movies'}
 			>
-				<MoviesHeader/>
+				<MoviesHeader />
 			</Header>
 			<main className='movies'>
-				<SearchForm onSubmit={handleSubmit}/>
-				<MoviesCardList movies={movies} cardType='searchMovie'/>
+				<SearchForm
+					onSubmit={onSubmit}
+					searchKeyword={searchKeyword}
+					onCheckbox={onCheckbox}
+					checked={checked}
+					checkedSaveMovies={checkedSaveMovies}
+				/>
 
-				<button type='button' className='movies__button'>
-					Еще
-				</button>
-
-				<Preloader isOpen={isPreloaderOpen}/>
+				{isLoading ? (
+					<Preloader />
+				) : (
+					<MoviesCardList
+						movies={movies}
+						isNotFound={isNotFound}
+						isFailed={isFailed}
+						searchKeyword={searchKeyword}
+						savedMovies={savedMovies}
+						onSave={onSave}
+						onDelete={onDelete}
+						onCheckbox={onCheckbox}
+						checked={checked}
+						checkedSaveMovies={checkedSaveMovies}
+						allSavedMovies={allSavedMovies}
+					/>
+				)}
 			</main>
 
-			<Footer/>
+			<Footer />
 		</>
 	);
 }

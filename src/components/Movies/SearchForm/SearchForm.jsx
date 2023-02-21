@@ -1,54 +1,72 @@
-import React, {useState} from 'react';
-import './SearchForm.css'
-import CheckBox from "../CheckBox/CheckBox";
+import CheckBox from './../CheckBox/CheckBox';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import './SearchForm.css';
 
-const SearchForm = () => {
+function SearchForm({
+  onSubmit,
+  searchKeyword,
+  onCheckbox,
+  checked,
+  checkedSaveMovies,
+}) {
+  const [errorText, setErrorText] = useState('');
+  const [keyword, setKeyword] = useState('');
+  const [isFormValid, setIsFormValid] = useState(false);
+  const location = useLocation();
 
-	const [errorText, setErrorText] = useState('');
-	const [keyword, setKeyword] = useState('');
-	const [isFormValid, setIsFormValid] = useState(false);
+  useEffect(() => {
+    if (searchKeyword && location.pathname === '/movies') {
+      setKeyword(searchKeyword);
+    }
+  }, [location.pathname, searchKeyword]);
 
-	const handleChange = (evt) => {
-		setKeyword(evt.target.value);
-		setIsFormValid(evt.target.closest('form').checkValidity());
-	};
+  const handleChange = (evt) => {
+    setKeyword(evt.target.value);
+    setIsFormValid(evt.target.closest('form').checkValidity());
+  };
 
-	const handleSubmit = (evt) => {
-		evt.preventDefault();
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
 
-		setIsFormValid(evt.target.closest('form').checkValidity());
-		if (!isFormValid) {
-			return setErrorText('Нужно ввести ключевое слово');
-		}
-	};
+    setIsFormValid(evt.target.closest('form').checkValidity());
+    if (!isFormValid) {
+      return setErrorText('Нужно ввести ключевое слово');
+    }
+    onSubmit(keyword);
+  };
 
-	return (
-		<section className='search'>
-			<div className="search__container">
+  return (
+    <section className='search'>
+      <div className='search__container'>
+        <form
+          action='#'
+          noValidate
+          className='search__form'
+          onSubmit={handleSubmit}
+        >
+          <input
+            type='text'
+            className='search__input'
+            placeholder='Фильм'
+            required
+            onChange={handleChange}
+            value={keyword}
+            minLength='1'
+            maxLength='30'
+          />
+          <button type='submit' className='search__button'></button>
+          <span className='search__error'>{!isFormValid && errorText}</span>
+        </form>
 
-				<form action="#" className="search__form" onSubmit={handleSubmit}>
-
-					<input type='text'
-								 className='search__input'
-								 placeholder='Фильм'
-								 required
-								 onChange={handleChange}
-								 value={keyword}
-								 minLength='1'
-								 maxLength='30'
-					/>
-
-					<button type='submit' className="search__button"></button>
-
-					<p className='search__error'>не то написал</p>
-				</form>
-
-				<CheckBox/>
-
-			</div>
-
-		</section>
-	);
-};
+        <CheckBox
+          onCheckbox={onCheckbox}
+          checked={checked}
+          checkedSaveMovies={checkedSaveMovies}
+        ></CheckBox>
+      </div>
+    </section>
+  );
+}
 
 export default SearchForm;

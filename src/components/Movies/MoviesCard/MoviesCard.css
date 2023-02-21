@@ -43,22 +43,22 @@
   transition: 0.7s ease-in-out;
   cursor: pointer;
 
-	border:0;
+  border: 0;
 }
 
-.movies-card__delete{
-	background: unset;
-	width: 24px;
-	height: 24px;
+.movies-card__favorite_delete {
+  background: unset;
+  width: 24px;
+  height: 24px;
   transition: 0.7s ease-in-out;
   cursor: pointer;
-	border:0;
+  border: 0;
 }
 
-.movies-card__delete:hover{
-	background-image: url('../../../images/delete-favorite.svg');
-	background-color: #f9f9f9;
-	background-repeat: no-repeat;
+.movies-card__favorite_delete:hover {
+  background-image: url('../../../images/delete-favorite.svg');
+  background-color: #f9f9f9;
+  background-repeat: no-repeat;
   background-position: center center;
   background-size: 10px 10px;
   width: 24px;
@@ -68,14 +68,14 @@
 }
 
 
-
 .movies-card__favorite:hover {
   opacity: 0.7;
 }
 
-.movies-card__favorite_inactive{
-	background-image: url('../../../images/heart.svg');
+.movies-card__favorite_inactive {
+  background-image: url('../../../images/heart.svg');
 }
+
 .movies-card__favorite_active {
   background-image: url('../../../images/heart-red.svg');
 }
@@ -92,7 +92,7 @@
 }
 
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 990px) {
   .movies-card__image {
     width: 339px;
     height: 190px;
@@ -100,7 +100,7 @@
 
 }
 
-@media screen and (max-width: 710px) {
+@media screen and (max-width: 420px) {
   .movies-card__image {
     width: 300px;
     height: 168px;
