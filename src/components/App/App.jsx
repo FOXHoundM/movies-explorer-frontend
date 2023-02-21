@@ -100,6 +100,7 @@ function App() {
 
 	const onSignOut = useCallback(() => {
 		localStorage.removeItem('jwt');
+		localStorage.clear();
 		navigate('/');
 		setLoggedIn(false);
 		setCurrentUser({});
